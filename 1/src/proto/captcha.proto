@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package pb;
+
+message Captcha {
+    string ID = 1;
+    string Code = 2;
+}
+
+// 返回默认代理数据
+message DefaultAgentResp{
+    string AgentId  = 1;
+}
+
+
+// 登陆注册拼图验证码返回
+message PuzzleCaptchaResp{
+    int64 y = 1;        // 裁剪的小图相对左上角的y轴坐标
+    string id = 2;      // 验证码ID
+    int64 imgx = 3;     // 验证码图片宽度
+    int64 imgy = 4;     // 验证码图片高度
+    string small = 5;   // 裁剪的小图片
+    int64 sImgx = 6;    // 验证码小图片宽度
+    int64 sImgy = 7;    // 验证码小图片高度
+    string normal = 8;  // 验证码混淆后的图片
+}
+
+// 登陆注册验证码检测接受参数
+message CaptchaReq{
+    // 验证码标示
+    // @inject_tag: valid:"Must;"
+    int64 x = 1;        // 图片位置
+    // 验证码标示
+    // @inject_tag: valid:"Must;Min(1);Max(2);ErrorCode(5311)"
+    int64 codeType = 2; // 验证码类型 1 注册 2 登陆
+    // 验证码标示
+    // @inject_tag: valid:"ErrorCode(2062)"
+    string codeId = 3;
+}
+
+// 登陆注册验证码设定数据
+message CaptchaInfoReq{
+    int64 captchaType = 1;      // 验证码类型 1数字验证 2图片验证
+    int64 isCode = 2;           // 是否开启验证
+    int64 loginCaptchaType = 3; // 登陆验证码类型 1数字验证 2图片验证
+    int64 isLoginXode = 4;      // 是否开启登陆验证码
+}

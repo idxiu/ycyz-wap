@@ -1,0 +1,232 @@
+.pk-auth {
+    margin-top: -1.17rem;
+    padding-bottom: 1.17rem;
+    width: 100%;
+    height: 100%;
+    background: $default-color;
+
+    .pk-auth-box {
+        padding: 1.0667rem 1rem 0 1rem;
+        box-sizing: border-box;
+
+        .back-img {
+            padding: 0.2rem;
+            width: 0.48rem;
+            height: 0.3867rem;
+
+            img {
+                width: 0.48rem;
+                height: 0.3867rem;
+            }
+        }
+
+        h3 {
+            margin: 0.4667rem 0.2rem 0;
+            font-size: 0.6667rem;
+            color: $auth-title;
+            line-height: 1;
+        }
+
+        .noticebar {
+            position: relative;
+            margin-top: 0.3333rem;
+            margin-left: 0.2rem;
+
+            img {
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translate(0, -50%);
+                width: 0.32rem;
+                height: 0.32rem;
+            }
+
+            .marquee {
+                box-sizing: border-box;
+                border-left: 0.6667rem solid $default-color;
+            }
+
+            .noticeText {
+                padding-left: 1.5467rem;
+                line-height: 0.7467rem;
+                display: inline-block;
+                vertical-align: middle;
+                color: $auth-noticebar;
+                font-size: 0.2933rem;
+            }
+        }
+
+        .form-box {
+            margin-top: 0.5333rem;
+
+            .form-item {
+                position: relative;
+                margin-bottom: 0.5333rem;
+
+                label {
+                    position: absolute;
+                    top: 50%;
+                    left: 0.6667rem;
+                    transform: translate(0, -50%);
+                    font-size: 0.3467rem;
+                    color: $auth-label;
+                }
+
+                input {
+                    padding: 0 0.6667rem 0 1.7333rem;
+                    box-sizing: border-box;
+                    width: 100%;
+                    height: 1.2rem;
+                    background: $auth-input-bg;
+                    text-align: right;
+                    font-size: 0.4267rem;
+                    color: $auth-title;
+                    border-radius: 0.1333rem;
+                    border: 0.0267rem solid transparent;
+                    &:focus {
+                        border: 0.0267rem solid $index-color;
+                        + label{
+                            color: $index-color;
+                        }
+                    }
+                }
+
+                &.form-code {
+                    input {
+                        width: 63%;
+                    }
+
+                    .login-code-img {
+                        position: absolute;
+                        right: 0;
+                        top: 50%;
+                        transform: translate(0, -50%);
+                        height: 100%;
+                    }
+                }
+            }
+
+            .form-tool {
+                display: flex;
+
+                .tool-item {
+                    flex: 1;
+                    font-size: 0.3467rem;
+                    color: $label-color;
+
+                    &.kf {
+                        text-align: right;
+                    }
+
+                    &.checkbox {
+                        input[type="checkbox"] {
+                            vertical-align: middle;
+                            width: 0.3733rem;
+                            height: 0.3733rem;
+                            -webkit-appearance: none;
+                            -moz-appearance: none;
+                            appearance: none;
+                            background: url("../../assets/img/auth-icon/xuanzhong.png") no-repeat;
+                            background-size: cover;
+                        }
+
+                        input[type="checkbox"]:checked {
+                            background: url("../../assets/img/auth-icon/selectActive.png") no-repeat;
+                            background-size: cover;
+                        }
+                    }
+
+                    label {
+                        padding-left: 0.1333rem;
+                        vertical-align: middle;
+                    }
+
+                    .agreement {
+                        vertical-align: middle;
+                        color: $auth-agreement;
+                    }
+                }
+            }
+
+            .btns {
+                margin-top: 0.8rem;
+
+                .btn {
+                    margin-top: 0.4rem;
+                    width: 100%;
+                    height: 1.2rem;
+                    text-align: center;
+                    line-height: 1.1467rem;
+                    font-size: 0.48rem;
+                    border-radius: 0.1333rem;
+                    border: solid 0.0267rem $auth-title;
+                    box-sizing: border-box;
+
+                    &.btn-disabled {
+                        color: $default-color;
+                        background: $auth-disabled-bg;
+                    }
+
+                    &.btn-active {
+                        color: $default-color;
+                        background: $primary-color;
+                        border: 0;
+                    }
+                }
+            }
+
+            .thdlogins {
+                text-align: center;
+
+                .thdlogins-title {
+                    margin-top: 0.64rem;
+                    font-size: 0.3467rem;
+                    color: $label-color;
+                    width: 100%;
+                    position: relative;
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        top: 50%;
+                        width: 2.6667rem;
+                        height: 0.0533rem;
+                        background-color: #dedbdb;
+                        border-radius: 0.0267rem;
+                    }
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        right: 0;
+                        top: 50%;
+                        width: 2.6667rem;
+                        height: 0.0533rem;
+                        background-color: #dedbdb;
+                        border-radius: 0.0267rem;
+                    }
+                }
+
+                .alink {
+                    padding: 0 0.5333rem;
+
+                    img {
+                        margin-top: 0.4rem;
+                        width: 0.8rem;
+                        height: 0.8rem;
+                    }
+                }
+            }
+        }
+    }
+    .pk-register{
+        padding-top:  1.17rem;
+        .agreement-text{
+            padding: 0.2rem;
+            font-size: .42rem;
+            background-color: $default-color;
+            color: $text-color;
+        }
+    }
+}

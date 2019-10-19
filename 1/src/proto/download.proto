@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package pb;
+
+// 下载
+message DownloadResp {
+    // 是否可以下载app 1 可以 2不可以
+    int64 isDownApp = 1;
+    // 下载域名
+    string downloadDomain = 2;
+    // ios 信任教程
+    string courseUrl = 3;
+    // 导航站域名
+    string navUrl = 4;
+}

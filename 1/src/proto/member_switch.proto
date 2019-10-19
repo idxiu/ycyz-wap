@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package pb;
+
+// 会员开关选项（推广、自助返水、自助优惠）
+message MemberSwitchInfo {
+    // 是否开启会员推广
+    bool isSpread = 1;
+    // 是否开启自助返水
+    bool isWaterSelf = 2;
+    // 是否开启自助优惠
+    bool isOfferSelf = 3;
+    // 是否开启代理注册
+    bool isAgencyReg = 4;
+    // 免钱包模式开关 1开启 2关闭
+    int32 freeWalletSwitch = 5;
+}
+
+message SetMemberFreeWalletSwitchReq {
+    // 免转钱包模式开关 1开启 2关闭
+    int32 freeWalletSwitch = 1;
+}

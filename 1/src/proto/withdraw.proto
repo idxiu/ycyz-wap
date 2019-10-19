@@ -1,0 +1,220 @@
+syntax = "proto3";
+
+package pb;
+
+// WithDrawInfoResp 取款页面所需数据
+message WithDrawInfoResp {
+    // 会员账号
+    string account = 1;
+    // 会员系统余额
+    double balance = 2;
+    // 会员是否有银行卡
+    int64 has = 3;
+    // 取款最小金额
+    double min = 4;
+    // 取款最大金额
+    double max = 5;
+    // 会员银行卡
+    repeated BankCardListResp bankList = 6;
+    // 会员是否取款密码
+    int64 hasP = 7;
+    // 行政费比率
+    double lineAuditAdminRate = 8;
+    // 是否有未出款订单
+    int32 isOrder = 9;
+}
+
+// BankCardListResp 会员银行卡
+message BankCardListResp {
+    // 银行卡id
+    int64 id = 1;
+    // 会员银行卡银行名称
+    string bankName = 2;
+    // 银行卡卡号
+    string card = 3;
+    // 银行卡开户支行
+    string subbranch = 4;
+    // 是否默认
+    int64 isDefault = 5;
+}
+
+// 取款
+message WithDrawAuditReq {
+    // 取款金额
+    // @inject_tag: valid:"Must;Min(1);ErrorCode(6668)"
+    double outMoney = 1;
+    // 取款密码
+    // @inject_tag: valid:"Must;Length(6);ErrorCode(6617)"
+    string drawPassword = 2;
+    // 出款银行id
+    // @inject_tag: valid:"Must;Min(1);ErrorCode(6669)"
+    int64 bankId = 3;
+}
+
+// 出款稽核返回结构体
+message AuditInfoResp {
+    // 稽核开始时间
+    int64 startTime = 1;
+    // 稽核结束时间
+    int64 endTime = 2;
+    // 出款金额
+    double money = 3;
+    // 优惠
+    double depositMoney = 4;
+    // 行政费
+    double adminMoney = 5;
+    // 手续费
+    double outCharge = 6;
+    // 常态稽核放宽额度
+    double auditRelaxQuota = 7;
+    // 实际出款金额
+    double outMoney = 8;
+    // 是否满足综合稽核 1 满足 2不满足
+    int64 multiple = 9;
+    // 是否满足常态稽核 1 满足 2不满足
+    int64 normal = 10;
+    // 稽核缓存key
+    string key = 11;
+    // 是否首次出款
+    int64 isFirst = 12;
+    // 银行卡id
+    int64 bankId = 13;
+    // 订单id
+    string orderId = 14;
+    //  存款
+    double deposit = 15;
+    // 实际有效投注
+    double betAll = 16;
+    // 电子投注金额
+    double gameElectronics = 17;
+    // 视讯投注金额
+    double gameVideo = 18;
+    // 捕鱼投注金额
+    double gameFishing = 19;
+    // 彩票投注金额
+    double gameLottery = 20;
+    // 体育投注金额
+    double gameSports = 21;
+    // 棋牌投注金额
+    double gameChess = 22;
+    // 行政费用比例
+    double lineAuditAdminRate = 23;
+}
+
+// 继续取款
+message ContinueDrawReq {
+    // 稽核缓存key
+    // @inject_tag: valid:"Must;Min(1);ErrorCode(6610)"
+    string key = 1;
+}
+
+// 继续取款返回结构体
+message ContinueDrawResp {
+    // 订单id
+    string orderId = 1;
+}
+
+// 即时稽核返回接口
+message AppAuditResp {
+    // 总计存入金额
+    double totalMoney = 1;
+    // 总计存款优惠
+    double totalDepositDiscount = 2;
+    // 总扣除金额
+    double totalAllFree = 3;
+    // 投注总额
+    double totalBetMoney = 4;
+    // 稽核开始时间
+    int64 startTime = 5;
+    // 稽核结束时间
+    int64 endTime = 6;
+    // 综合稽核倍数
+    int64 multipleRate = 7;
+    // 常态稽核倍数
+    int64 normalRate = 8;
+    // 行政费率
+    double adminMoneyRate = 9;
+    // 出款提出金额
+    double money = 10;
+    // 实际出款金额
+    double actualMoney = 11;
+    // 是否首次出款
+    int64 isFirstOut = 12;
+    // 银行卡id
+    int64 bankId = 13;
+    // 稽核缓存key
+    string key = 14;
+    // 	订单id
+    string orderId = 15;
+    // 本页面的所有数据
+    repeated AppAuditDetails allData = 16;
+    // 手续费
+    double  outCharge =17;
+    IsMemberInfo isMemberInfo = 18;
+}
+
+// 会员资料是否已填
+message IsMemberInfo {
+    // qq是否要填 1是 2否
+    int32 isQq = 1;
+    // 微信是否要填 1是 2否
+    int32 isWechat = 2;
+    // 邮箱是否要填 1是 2否
+    int32 isEmail = 3;
+    // 电话是否要填 1是 2否
+    int32 isPhone = 4;
+    // 身份证是否要填 1是 2否
+    int32 isIdCard = 5;
+}
+
+//  稽核详情
+message AppAuditDetails {
+    //稽核开始时间
+    int64 startTime = 1;
+    //稽核结束时间
+    int64 endTime = 2;
+    //消费额(投注总额)
+    double betValid = 3;
+    //放宽额度
+    double auditRelaxQuota = 4;
+    //常态稽核
+    int64 normal = 5;
+    //综合稽核
+    int64 multiple = 6;
+    //行政费
+    double adminMoney = 7;
+    //行政费率
+    double adminMoneyRate = 8;
+    //优惠金额
+    double depositMoney = 9;
+    //手续费
+    double outCharge = 10;
+    //体育
+    double gameSports = 11;
+    //彩票
+    double gameLottery = 12;
+    //视讯
+    double gameVideo = 13;
+    //棋牌
+    double gameChess = 14;
+    //电子
+    double gameElectronics = 15;
+    //满足常态稽核
+    double normalAccord = 16;
+    //满足综合稽核
+    double multipleAccord = 17;
+    //存款金额
+    double preSave = 18;
+    //存款优惠
+    double depositPreSave = 19;
+    //总扣款金额
+    double allFree = 20;
+    //综合稽核倍数
+    int64 multipleRate = 21;
+    //常态稽核倍数
+    int64 normalRate = 22;
+    //常态投注额差额
+    double ctChaMoney = 23;
+    //综合投注额差额
+    double zhChaMoney = 24;
+}

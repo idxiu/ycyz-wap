@@ -1,0 +1,49 @@
+{
+  "name": "pk-skin",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "vue-cli-service serve",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test": "vue-cli-service build --mode test",
+    "proto:json": "pbjs -t json src/proto/*.proto > src/proto/proto.json",
+    "proto:js": "pbjs -t json-module -w commonjs -o src/proto/proto.js  src/proto/*.proto"
+  },
+  "dependencies": {
+    "extract-text-webpack-plugin": "^3.0.2",
+    "google-protobuf": "^3.6.1",
+    "jquery": "^3.3.1",
+    "vee-validate": "^2.0.0",
+    "vue": "^2.5.17",
+    "vue-clipboard2": "^0.2.1",
+    "vue-qriously": "^1.1.1",
+    "vue-router": "^3.0.1",
+    "vue-star-rating": "^1.6.1",
+    "vue-swipe-actions": "^2.0.0-beta.6"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.1",
+    "@vue/cli-service": "^3.0.1",
+    "fastclick": "^1.0.6",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0",
+    "mint-ui": "^2.2.13",
+    "protobufjs": "^6.8.8",
+    "vue-awesome-swiper": "^2.4.0",
+    "vue-i18n": "^8.3.0",
+    "vue-loader": "^14.2.2",
+    "vue-resource": "^1.5.1",
+    "vue-template-compiler": "^2.5.17"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}

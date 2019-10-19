@@ -1,0 +1,255 @@
+.register {
+    background: @color-B;
+    padding: 0 0.4rem 0.4rem 0.4rem;
+    box-sizing: border-box;
+    line-height: 1;
+    .register-cent {
+        margin-top: 0.5333rem;
+        h3 {
+            text-align: center;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0rem;
+            color: @color-w;
+        }
+        h5 {
+            margin-top: 0.4rem;
+            text-align: center;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            color: @color-w;
+            p:last-child {
+                margin-top: 0.2rem;
+            }
+        }
+        .register-from {
+            padding: 0.5333rem 0.4rem;
+            box-sizing: border-box;
+            margin-top: 0.5333rem;
+            background:@color-U;
+            background-blend-mode: normal, normal;
+            box-shadow: 0rem 0.0533rem 0.1333rem 0rem @color-rgab-black;
+            border-radius: 0.2667rem;
+            .register-protocol {
+                margin-bottom: 0.5333rem;
+                font-size: 0; 
+                p {
+                    margin-left: 0.2933rem;
+                    display: inline-block;
+                    vertical-align: middle;
+                    color: @color-T;
+                    a {
+                        color: @color-primary;
+                    }
+                }
+                .forget {
+                    float: right;
+                    .service {
+                        color: @color-primary
+                    }
+                }
+            }
+            .pk-btn {
+                margin-bottom: 0.5333rem;
+            }
+            .has-account {
+                height: 1.0667rem;
+                border: 1px solid @color-primary;
+                border-radius: 0.1333rem;
+                color: @color-primary;
+                text-align: center;
+                line-height: 1.0667rem;
+            }
+        }
+    }
+}
+
+::-webkit-input-placeholder {
+    color: @color-V;
+}
+
+/* 使用webkit内核的浏览器 */
+
+:-moz-placeholder {
+    color: @color-V;
+}
+
+/* Firefox版本4-18 */
+
+::-moz-placeholder {
+    color: @color-V;
+}
+
+/* Firefox版本19+ */
+
+:-ms-input-placeholder {
+    color: @color-V;
+}
+
+.mgl0 {
+    margin-left: 0 !important;
+}
+
+.left {
+    float: right;
+}
+
+.inps {
+    display: inline-block;
+    width: 70% !important;
+}
+
+.input-code-img {
+    float: right;
+    height: 100%;
+    display: block;
+    width: 30%;
+    background: @color-W;
+    background-blend-mode: normal, normal;
+    height: 100%;
+    div.right {
+        font-size: .37333rem/* 28/75 */
+        ;
+        text-align: center;
+        line-height: 1.04rem/* 78/75 */
+        ;
+        color: @color-V;
+        width: 80%;
+        float: right;
+        height: 100%;
+        border-radius: .13333rem/* 10/75 */
+        ;
+        background: @color-W;
+        background-blend-mode: normal, normal;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.beerr {
+    color: @color-a;
+    opacity: 0.8;
+    margin-top: -0.1867rem;
+    margin-bottom: 0.1333rem;
+    /* 10/75 */
+}
+
+.dis-inb {
+    display: inline-block;
+}
+
+.ps {
+    margin-right: 0.1067rem;
+    /* 20/75 */
+}
+
+.ju {
+    width: 0.4rem;
+    height: 0.4rem;
+    .imgs {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.fl {
+    float: left;
+}
+
+.register-protocol {
+    height: .4rem;
+    width: 100%;
+}
+
+.j98 {
+    color: @color-T;
+}
+
+.read-agree-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    .modal-mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: @color-default-black;
+        opacity: 0.4;
+    }
+    .modal-body {
+        padding: 0.4rem;
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 1;
+        transform: translate(-50%, -50%);
+        width: 9.2rem;
+        height: 12rem;
+        background-color: @color-default;
+        border-radius: 0.2667rem;
+        overflow-x: hidden;
+        overflow-y: auto;
+        .modal-cent {
+            height: 9.7333rem;
+            color: @color-J;
+            overflow-y: auto;
+            overflow-x: hidden;
+            h5 {
+                margin-bottom: 0.3333rem;
+                text-align: center;
+                font-weight: normal;
+                font-stretch: normal;
+                color: @color-C
+            }
+            .modal-cent-box{
+                line-height: 0.6rem;
+            }
+        }
+        .pk-btn {
+            margin-top: 0.4rem;
+            width: 100%;
+            color: @color-default;
+        }
+    }
+}
+
+.auth-logo {
+    display: inline-block;
+    width: 1.6rem;
+    height: 0.72rem;
+    img {
+        width: 100%;
+    }
+}
+
+.thdlogins {
+    width: 100%;
+    text-align: center;
+    color: @color-primary;
+    margin-top: 0.7rem;
+    .iconqq {
+        font-size: 1rem;
+        border-radius: 50%;
+        padding: 0.1rem;
+        font-weight: bold;
+    }
+    p {
+        line-height: 2;
+    }
+}
+
+.alink {
+    display: inline-block;
+    color: @color-primary !important;
+}
+.alink:first-child{
+    margin-right: .2rem /* 15/75 */
+}

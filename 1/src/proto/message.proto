@@ -1,0 +1,170 @@
+syntax = "proto3";
+
+package pb;
+
+// 未读消息数量返回
+message UnReadResp {
+    int32 count = 1;
+}
+
+// 消息列表
+message MessageList {
+    // 消息id
+    int64 id = 1;
+    // 标题
+    string title = 2;
+    // 内容
+    string content = 3;
+    // 创建时间
+    int64 createTime = 4;
+}
+
+// 公告列表返回
+message NoticeListResp {
+    repeated MessageList messageList = 1;
+    int64 totalNum = 2;
+}
+
+// 消息列表返回
+message MessageListResp {
+    repeated ReadMessage messageList = 1;
+    int32 unReadNum = 2;
+    int32 totalNum = 3;
+}
+
+// 消息id
+message MessageIdReq {
+    //  @inject_tag: valid:"Must;ErrorCode(1007)"
+    int32 id = 1;
+}
+
+// 消息读取
+message ReadMessage {
+    // 消息id
+    int32 id = 1;
+    // 标题
+    string title = 2;
+    // 内容
+    string content = 3;
+    // 消息类型1系统通知,2活动通知,3维护通知,4个人消息
+    int32 mType = 4;
+    // 创建时间
+    int32 createTime = 5;
+    // 状态1未读，2已读
+    int32 status = 6;
+}
+
+// 弹出消息
+message PopMessage {
+    // 消息id
+    int32 id = 1;
+    // 标题
+    string title = 2;
+    // 内容
+    string content = 3;
+    // 消息类型1系统通知,2活动通知,3维护通知,4个人消息
+    int32 mType = 4;
+    // 创建时间
+    int32 createTime = 5;
+    // 状态1未读，2已读
+    int32 status = 6;
+    // wap图片
+    string wapImg = 7;
+    // 未读数
+    int32 count = 8;
+}
+
+// 空结构体,MemberMessageQueryOneReq  会员读取消息
+message MemberMessageReadReq {
+    int32 id = 1;
+}
+
+// 会员消息id
+message MemberMessageIdReq {
+    int32 id = 1; //序号id
+}
+
+// 会员问卷调查
+message MemberMessageInvestigationReq {
+    // 问卷id
+    // @inject_tag: valid:"Must;ErrorCode(1007)"
+    int32 id = 1;
+    // 问卷平台类型1平台 2代理
+    // @inject_tag: valid:"Must;Min(1);Max(2);ErrorCode(11105)"
+    int32 platform = 2;
+}
+
+// 会员发送问卷调查
+message InvestigationMessageSendOneReq {
+    //问卷id
+    int32 investigationId = 1;
+    //平台类型1平台 2代理
+    int32 platform = 2;
+    repeated InvestigationMessageContentReq content = 4; //内容
+}
+
+message InvestigationMessageContentReq {
+    //题目id
+    int32 titleId = 1;
+    //答案   逗号隔开
+    string userAnswer = 2;
+    //题目类型1单选 2多选 3填空 4五星评分 5十星评分
+    int32 type = 3;
+    //其他答案
+    string userAnswerStr = 4;
+    //是否有其他答案1是 2否
+    int32 userAnswerOther = 5;
+}
+
+//问卷调查信息表-平台针对前台列表返回
+message InvestigationFrontMessage {
+    int32 id = 1;
+    //标题
+    string title = 2;
+    //试卷id
+    int32 pid = 3;
+    //内容
+    string content = 4;
+    //描述
+    string remark = 5;
+    //站点id
+    string siteId = 6;
+    //前台id
+    string siteIndexId = 7;
+    //添加时间
+    int32 createTime = 8;
+    //过期时间
+    int32 stopTime = 10;
+    //1待填写2已填写
+    int32 status = 12;
+    //1过期2没过去
+    int32 stopStatus = 13;
+    //平台类型1平台  2代理
+    int32 platform = 14;
+}
+
+
+// 问卷列表返回
+message InvestigationListResp {
+    repeated InvestigationFrontMessage messageList = 1;
+    int32 unReadNum = 2;
+    int32 totalNum = 3;
+}
+
+//问卷调查信息表-query
+message InvestigationFrontQuery {
+    int32 id = 1;
+    string title = 2; //标题
+    int32 pid = 3; //试卷id
+    string content = 4; //内容
+    string remark = 5; //描述
+    string siteId = 6; //站点id
+    int32 createTime = 7; //添加时间
+    string account = 9; //操作人
+}
+
+// 问卷id
+message InvestigationIdReq {
+    int32 id = 1;
+    string title = 2;
+}

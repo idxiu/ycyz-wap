@@ -1,0 +1,135 @@
+syntax = "proto3";
+
+import "rebate.proto";
+import "wallet.proto";
+
+package pb;
+
+// 推广详情返回结构体
+message SpreadInfoResp {
+    // 推广链接
+    string spreadUrl = 1;
+    // 排行榜
+    repeated LeaderboardResp leaderboard = 2;
+    // 返佣比例
+    repeated ProportionResp list = 3;
+}
+
+// 排行榜返回结构体
+message LeaderboardResp {
+    // 姓名
+    string name = 1;
+    // 金额
+    double money = 2;
+}
+
+message SiteSpreadNextSetListResp {
+    repeated SiteSpreadNextSetResp data = 1;
+}
+message SiteSpreadNextSetResp {
+    int64 id = 1; // 主键ID
+    int64 memberId = 2; // 会员ID
+    string account = 3; // 会员账号
+    string spreadCode = 4; // 推广码
+    string spreadUrl = 5; // 推广路由
+    int64 createTime = 6; // 创建时间
+    repeated SiteSpreadNextSetTypeResp data = 7; // 推广设定比例
+}
+
+message SiteSpreadNextSetTypeResp {
+    string typeName = 1; // 名称
+    string typeApi = 2; // 标示，为彩票分类备用
+    int64 gameType = 3; // 1彩票2电子3视讯4棋牌5体育6捕鱼
+    double retreatCode = 4; // 反佣比例
+    double retreatCodeUp = 5; // 反佣比例上限
+}
+
+message SiteSpreadNextSetTypeClassListResp {
+    repeated SiteSpreadNextSetTypeClassResp data = 1;
+}
+message SiteSpreadNextSetTypeClassResp {
+    int64 typeId = 1; // 类型ID
+    string typeName = 2; // 类型名
+    repeated SiteSpreadNextSetTypeResp data = 3; // 推广设定比例数据
+}
+
+message SiteSpreadNextSetTypeReq {
+    // @inject_tag: valid:"Must;ErrorCode(5401)"
+    string typeName = 1; // 名称
+    string typeApi = 2; // 标示，为彩票分类备用
+    // @inject_tag: valid:"Must;Mix(1);Max(6);ErrorCode(5176)"
+    int64 gameType = 3; // 1彩票2电子3视讯4棋牌5体育6捕鱼
+    // @inject_tag: valid:"Must;Mix(0.00);Max(100.00);ErrorCode(5404)"
+    double retreatCode = 4; // 反佣比例
+}
+
+message AddReq {
+    repeated SiteSpreadNextSetTypeReq data = 1;
+}
+
+message DelReq {
+    int64 id = 1; //推广设定ID
+}
+
+// 下级管理传参
+message SpreadNextMemberReq {
+    // @inject_tag: valid:"Must;Min(5);Max(16);ErrorCode(6095)"
+    string account = 1;
+    // 分页数据
+    PageParams pageParams = 2;
+}
+
+
+message AllSpreadNextMember {
+    // 详情
+    repeated SpreadNextMember list = 1;
+    int64 totalNum = 2;
+    int64 level = 3;
+    string url = 4;
+}
+
+// 会员管理
+message SpreadNextMember {
+    // 主键id
+    int64 id = 1;
+    // 网站id
+    string siteId = 2;
+    // 网站前台id
+    string siteIndexId = 3;
+    // 登陆账号
+    string account = 4;
+    // 所处推广级数
+    int64 memberLevel = 5;
+    // 下级总人数
+    int64 spreadAllMember = 6;
+    // 钱包余额(精确到小数点后两位)
+    double balance = 7;
+    // 反佣总金额
+    double spreadAllMoney = 8;
+    // 上次登录时间
+    int64 loginLastTime = 9;
+    // 推广设定比例对应ID
+    int64 spreadSetId = 10;
+    // 详情
+    repeated SiteSpreadNextSetType info = 11;
+}
+
+// 会员下级报表
+message SiteSpreadNextSetType {
+    // 主键ID
+    int64 id = 1;
+    // 站点ID
+    string siteId = 2;
+    // 前台ID
+    string siteIndexId = 3;
+    // 设定ID
+    int64 setId = 4;
+    // 名称
+    string typeName = 5;
+    // 标示，为彩票分类备用
+    string typeApi = 6;
+    // 1彩票2电子3视讯4棋牌5体育6捕鱼
+    int64 gameType = 7;
+    // 反佣比例
+    double retreatCode = 8;
+}
