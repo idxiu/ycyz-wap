@@ -400,18 +400,6 @@ export default new Router({
             component: () =>
                 import(/* webpackChunkName: "securityCenter" */ "./views/my/securityCenter/Videopwd.vue")
         },
-        // {
-        //     path: "/securityCenter/bankcardAdd",
-        //     name: "bankcardList",
-        //     component: () =>
-        //         import(/* webpackChunkName: "bank" */ "./views/my/securityCenter/AddBankcard.vue")
-        // },
-        // {
-        //     path: "/securityCenter/bankcard",
-        //     name: "bankcard",
-        //     component: () =>
-        //         import(/* webpackChunkName: "bank" */ "./views/my/securityCenter/Bankcard.vue")
-        // },
         // 会员积分
         {
             path: "/intergral",
@@ -529,6 +517,12 @@ export default new Router({
             name: "questionnaire",
             component: () =>
                 import(/* webpackChunkName: "inbox" */ "./views/my/messages/questionnaire/Questionnaire.vue")
-        },
+		},
+		{
+			path: "/download",
+			name: "download",
+			component: () =>
+				import(/* webpackChunkName: "download" */ "./views/auth/Download.vue")
+		}
 	]
 });

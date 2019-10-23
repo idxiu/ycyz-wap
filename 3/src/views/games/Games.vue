@@ -605,7 +605,16 @@ export default {
             openGame(data).then(res => {
                 if (res.success) {
                     if (res.data) {
-                        window.open(res.data, "_blank");
+                        // if (window.open(res.data) == undefined) {
+                        //     // this.$toast.fail('浏览器弹窗被禁用,请关闭阻止弹出式窗口',{
+                        //     //     cover: true,
+                        //     //     duration: 1500
+                        //     // })
+                                
+                        // }else{
+                        //     window.open(res.data, "_blank");
+                        // }
+                        window.location.href=res.data;
                     }
                 } else {
                     this.$toast.fail(res.message, {
@@ -626,17 +635,19 @@ export default {
                 //外链
                 if (item.advUrl) {
                     if (item.advUrl.indexOf("://") != -1) {
-                        window.open(
-                            item.advUrl,
-                            "_blank",
-                            "toolbar=yes, width=1300, height=900"
-                        );
+                        // window.open(
+                        //     item.advUrl,
+                        //     "_blank",
+                        //     "toolbar=yes, width=1300, height=900"
+                        // );
+                        window.location.href = item.advUrl;
                     } else {
-                        window.open(
-                            "http://" + item.advUrl,
-                            "_blank",
-                            "toolbar=yes, width=1300, height=900"
-                        );
+                        window.location.href = "http://" + item.advUrl;
+                        // window.open(
+                        //     "http://" + item.advUrl,
+                        //     "_blank",
+                        //     "toolbar=yes, width=1300, height=900"
+                        // );
                     }
                 }
             } else {
@@ -672,7 +683,8 @@ export default {
         toTryPlay(game){
             if(this.isDemo === 1){
                 if(game.swHref){
-                    window.open(game.swHref, "_blank");
+                    window.location.href=game.swHref;
+                    // window.open(game.swHref, "_blank");
                 }else {
                     Bus.$emit("toggle-try-play-modal", true, 2);
                 }

@@ -46,10 +46,10 @@
 					>
 						<ul>
 							<li class="pk-1px-b" v-for="(item, index) of list" :key="index">
-								<div class="title green">
+								<div class="title green" :class="{'red':item.status == 2,'green':item.status == 3}">
 									<p>
 										<span>{{item.converSionName}}</span>
-										<!-- <span class="status">{{item.statusName}}</span> -->
+										<span class="status">{{item.statusName}}</span>
 									</p>
 									<span class="money">{{item.transMoney | currency('￥',2)}}</span>
 								</div>

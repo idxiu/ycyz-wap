@@ -9,9 +9,9 @@
 	<!-- 消息，群组，热门推荐，最近玩过列表-item -->
 	<div class="item">
 		<div class="item-logo">
-			<i v-if="msgObj.tab === 3" class="sys-icon iconfont iconicon_info_xitongxx"></i> <!-- 系统消息 -->
-			<i v-if="msgObj.tab === 1" class="zb-icon iconfont iconicon_info_zhangbianxx"></i><!-- 账变消息 -->
-			<i v-if="msgObj.tab === 2" class="tz-icon iconfont iconicon_info_gonggaotz"></i><!-- 公告通知 -->
+			<i v-if="msgObj.tab === 3" class="sys-icon"><img src="../../../assets/img/icon_info_xitongxx.png" alt=""></i> <!-- 系统消息 -->
+			<i v-if="msgObj.tab === 1" class="zb-icon"><img src="../../../assets/img/icon_info_zhangbianxx.png" alt=""></i><!-- 账变消息 -->
+			<i v-if="msgObj.tab === 2" class="tz-icon"><img src="../../../assets/img/icon_info_gonggaotz.png" alt=""></i><!-- 公告通知 -->
 			<i class="red-point" v-show="msgObj.hasMsg"></i>
 			<img src="../../../assets/img/game-icon/yxdt_lts.png" v-if="msgObj.isChat" class="pk-chat-icon" />
 			<img :src="msgObj.img" v-if="msgObj.img" />

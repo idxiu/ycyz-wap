@@ -72,6 +72,9 @@ import "./assets/js/verify";
 import VueQriously from 'vue-qriously';
 Vue.use(VueQriously);
 
+//和oc通讯
+import './js_oc';
+
 //过滤器
 import * as filters from './filter';
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k])) //注册过滤器

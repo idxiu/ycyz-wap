@@ -29,7 +29,11 @@ a:hover {
     text-decoration: none;
 }
 
-
+button{
+    border-shadow:none;
+    border-width:0;
+    background-color:#fff;
+}
 
 
 // 边框1px
@@ -1051,7 +1055,7 @@ $font12   : 0.32rem;
     line-height     : 1.213333rem;
     font-size       : 0.48rem;
     font-weight     : normal;
-    background-color: $title-color;
+    background-color: $title-im-color;
     position        : fixed;
     top             : 0;
     left            : 0;

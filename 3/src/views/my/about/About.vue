@@ -493,7 +493,7 @@ export default {
             var form = new FormData();
             //组装form参数
             form.append("file", this.user.file);
-            form.append("nickname", this.user.account);
+            form.append("nickname", this.user.nickname);
             form.append("sex", this.user.sex);
             form.append("idCard", this.user.idCard);
             form.append("mobile", this.user.mobile);
@@ -530,10 +530,11 @@ export default {
                 this.$(".pk-day").css({ "z-index": "1" });
                 this.$(".pk-signs,.pk-sex").css({ "z-index": "0" });
             } else if (status == 2) {
-                this.$(".pk-sex").css({ "z-index": "100" });
+                this.$(".pk-sex").css({ "z-index": "11"});
+                this.$(".nut-actionsheet-mask").hide()
                 // this.$(".pk-signs").css({'z-index':'10'});
             } else {
-                this.$(".pk-signs,.pk-sex").css({ "z-index": "0" });
+                this.$(".pk-signs").css({ "z-index": "0" });
                 setTimeout(() => {
                     this.$(".pk-day").css({ "z-index": "10" });
                 }, 500);

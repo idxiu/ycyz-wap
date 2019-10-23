@@ -270,9 +270,16 @@ export default {
 				);
 			} else {
 				this.postData.depositMoney = this.postData.depositMoney.replace(
+					/[^\d.]/g,
+					""
+				);
+				this.postData.depositMoney = this.postData.depositMoney.replace(
 					/^(\-)*(\d+)\.(\d\d).*$/,
 					"$1$2.$3"
 				); //只能输入两个小数
+			}
+			if (this.postData.depositMoney != "" && this.postData.depositMoney.indexOf(".") < 0) {
+				this.postData.depositMoney = parseFloat(this.postData.depositMoney);
 			}
 		},
 

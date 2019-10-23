@@ -17,6 +17,7 @@
 					<span>投注内容</span>
 					<span class="txt">{{info.betWay}}</span>
 				</li>
+				
 			
 
 				<!-- 跟投显示 -->
@@ -26,6 +27,12 @@
 						<input class="tou" v-model="value" placeholder="填写整数如20" type="number" />
 						<span class="ju-color">元</span>
 					</h2>
+				</li>
+
+				<!-- 跟单显示 -->
+				<li v-if="type === 2" class="pk-1px-t">
+					<span>投注金额</span>
+					<span class="txt">{{info.bet | currency('¥',2)}}</span>
 				</li>
 
 				<!-- 跟单显示 -->
@@ -62,18 +69,24 @@ export default {
 	},
 	data() {
 		return {
-			
-			betMoney: 15000,
 			totalMoney: 0,
 			info:{},
-			value: '',
+			value: this.type === 2?1:'',
 		};
 	},
 
 	mounted() {
 		console.log('modal接受',this.planInfo)
         this.info = this.planInfo;
-		this.totalMoney = this.value * this.betMoney;
+		if(this.type ===2 ){
+			this.info.fcName = this.info.msg.fcName;
+			this.info.betNo = this.info.msg.period;
+			this.info.playName = this.info.msg.playName;
+			this.info.betWay = this.info.msg.playDetails;
+			this.info.bet = this.info.msg.bet;
+			this.totalMoney = this.info.bet * this.value;
+		}
+
 	},
 	methods: {
 		submit() {
@@ -86,7 +99,7 @@ export default {
 	watch: {
 		value(newVal, oldVal) {
 			this.value = newVal.replace(/[^0-9]/g, "");
-			this.totalMoney = this.betMoney * this.value;
+			this.totalMoney = this.info.bet * this.value;
 		}
 	}
 };

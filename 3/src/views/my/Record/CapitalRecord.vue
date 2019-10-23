@@ -331,6 +331,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+/deep/.pk-header{
+    z-index: 3;
+}
 .capitalrecord {
   .FundType {
     position: absolute;
@@ -352,6 +355,11 @@ export default {
     }
     .titButton {
       height: px2rem(80);
+      button{
+        border-shadow:none;
+        border-width:0;
+        background-color:#fff;
+      }
       .allChose {
         width: px2rem(120);
         position: relative;

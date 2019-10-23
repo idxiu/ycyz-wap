@@ -180,15 +180,13 @@
                 <div class="nodata" v-show="hasData">我是有底线的</div>
               </pk-loadmore>
               <div class="report" @click="back('detailRecord')" v-show="!showLoading">
-            <p>我的报表</p>
-          </div>
+              </div>
             </div>
           </div>
           <no-data v-show="list == null || list.length <= 0" class="no-data-box"></no-data>
         </div>
         <div class="report" v-show="list == null || list.length <= 0" @click="back('detailRecord')" >
-            <p>我的报表</p>
-          </div>
+        </div>
 
       </div>
     </div>
@@ -864,12 +862,8 @@ export default {
   width: px2rem(48);
   padding: px2rem(20) px2rem(20);
 	height: px2rem(48);
-	background-image: linear-gradient(-25deg, 
-		$color-w 0%, 
-		#ffb726 100%), 
-	linear-gradient(
-		$default-color, 
-    $default-color);
+	background: url("../../../assets/img/icon_wdbtext_btn@2x.png") no-repeat 0 center;
+        background-size: 100%;
     border-radius: px2rem(44);
     color: $default-color;
     font-size: px2rem(24);

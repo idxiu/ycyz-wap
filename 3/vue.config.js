@@ -20,10 +20,11 @@ module.exports = {
 		port: 8092,
 		proxy: {
 			"/app/api/v2": {
-				target: "https://zzya.pkbeta.com",
+				// target: "https://www.pkplus.org",
 				// target: "http://192.168.11.200:7072", //dev
 				// target: "http://10.18.3.30:7072", //127
 				// target: "http://10.18.3.39:7072", //135
+				target: "https://zzya.pkbeta.com", //test
 				ws: false,
 				changeOrigin: true //是否跨域
 			}

@@ -353,14 +353,13 @@ export default {
 							}
 							h2 {
 								font-size: px2rem(32);
-								line-height: px2rem(32);
+								line-height: px2rem(48);
 								color: $tip-color;
 								font-weight: normal;
 							}
 							p {
 								font-size: px2rem(26);
 								color: $label-color;
-								margin-top: px2rem(10);
 								display: inline-block;
 								a {
 									font-size: px2rem(28);

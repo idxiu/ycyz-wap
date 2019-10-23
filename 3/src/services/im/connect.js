@@ -46,19 +46,19 @@ function IM() {
             }
             var wsUrl;
             if (window.location.protocol === "https:") {
-                wsUrl = "wss://" + window.location.host + "/sub"; //线上环境
+                wsUrl = "wss://" + IMkey.server + "/sub"; //线上环境
             } else {
                 console.log('IMkey', IMkey)
-                if (window.location.host == "10.18.3.84:8092") {
+                if (window.location.host == "10.18.3.84:5000") {
                     wsUrl = "ws://" + IMkey.server + "/sub"; //135 本地
                 } else {
-                    wsUrl = "ws://" + window.location.host + "/sub"; //线上环境
+                    wsUrl = "ws://" + IMkey.server + "/sub"; //线上环境
                 }
 
             }
-            if(configs.usePackage){
-                wsUrl = "ws://" + IMkey.server + "/sub"; //线上环境
-            }
+            // if(configs.usePackage){
+            //     wsUrl = "ws://" + IMkey.server + "/sub"; //线上环境
+            // }
 
             var ws = new WebSocket(wsUrl);
             ws.binaryType = "arraybuffer";
@@ -127,11 +127,12 @@ function IM() {
             }
 
             function auth() {
+                let siteInfo = JSON.parse(localStorage.getItem('siteInfo'));
                 var token = {
                     isAdmin: 1,
                     userId: IMkey.mid,
-                    siteId: 'aaa',
-                    siteIndexId: 'a',
+                    siteId: siteInfo.siteIndexId || 'aaa',
+                    siteIndexId: siteInfo.siteIndexId || 'a',
                 };
                 token = JSON.stringify(token);
                 var headerBuf = new ArrayBuffer(rawHeaderLen);

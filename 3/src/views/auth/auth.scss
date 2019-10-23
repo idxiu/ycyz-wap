@@ -48,6 +48,16 @@
                     position: relative;
                     margin-top: px2rem(12);
 
+                    .passEye{
+                        position: absolute;
+                        right: px2rem(20);;
+                        top: 50%;
+                        margin-top: - px2rem(16);
+                        font-size: px2rem(32);
+                    }
+                    .passEye.icondl_eye_no{
+                        color: $primary-color;
+                    }
                     label {
                         position: absolute;
                         top: 50%;

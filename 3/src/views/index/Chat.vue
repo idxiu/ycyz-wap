@@ -7,66 +7,64 @@
  -->
 
 <template>
-  <!-- 聊天界面 -->
-  <div>
-    <Header
-      class="chat-header"
-      :title="title"
-      :showCenter="true"
-      :dofunc="true"
-      :callback="outRoom"
-    >
-      <span
-        v-show="$route.query.roomType != MSG_TYPE.TYPE_MEMBER"
-        slot="center"
-        class="number"
-      >({{roomNum}}人)</span>
-      <i
-        v-show="$route.query.roomType != MSG_TYPE.TYPE_MEMBER"
-        slot="right"
-        class="iconfont iconicon_nav_more"
-        @click="toChatInfo()"
-      ></i>
-    </Header>
-    <div id="msg_list" class="msg-list" :style="{'bottom':height}">
-      <ul v-show="list.length > 0">
-        <li v-for="(item,index) in list" :key="index">
-          <MsgItem :item="item" @handle-click="handleClick" />
-        </li>
-      </ul>
-    </div>
-    <SendMsg
-      @send="sendTextMsg"
-      @choose-file="chooseFile"
-      :sendType="sendType"
-      :isForbid="isForbid"
-      @set-height="setHeight"
-    />
-    <Red
-      v-if="isShowRedMOdal"
-      :redInfo="redInfo"
-      @get-red-bag="drawRedbag"
-      @close-red-modal="isShowRedMOdal = false"
-    />
+	<!-- 聊天界面 -->
+	<div>
+		<Header class="chat-header" :title="title" :showCenter="true" :dofunc="true" :callback="outRoom">
+			<span
+				v-show="$route.query.roomType != MSG_TYPE.TYPE_MEMBER"
+				slot="center"
+				class="number"
+			>({{roomNum}}人)</span>
+			<i
+				v-show="$route.query.roomType != MSG_TYPE.TYPE_MEMBER"
+				slot="right"
+				class="iconfont iconicon_nav_more"
+				@click="toChatInfo()"
+			></i>
+		</Header>
+		<div id="msg_list" class="msg-list" :style="{'bottom':height}">
+			<ul v-show="list.length > 0">
+				<li v-for="(item,index) in list" :key="index">
+					<MsgItem :item="item" @handle-click="handleClick" />
+				</li>
+			</ul>
+		</div>
+		<SendMsg
+			@send="sendTextMsg"
+			@choose-file="chooseFile"
+			:sendType="sendType"
+			:isForbid="isForbid"
+			@set-height="setHeight"
+		/>
+		<Red
+			v-if="isShowRedMOdal"
+			:redInfo="redInfo"
+			@get-red-bag="drawRedbag"
+			@close-red-modal="isShowRedMOdal = false"
+		/>
 
-    <Planned
-      v-if="planmessage.length > 0"
-      :planmessage="planmessage"
-      @insert-plan="insertPlan"
-      @show-plan-modal="showPlanModal"
-    />
+		<Planned
+			v-if="planmessage.length > 0"
+			:planmessage="planmessage"
+			@insert-plan="insertPlan"
+			@show-plan-modal="showPlanModal"
+		/>
 
-    <follow-plan
-      v-if="isShowPlanModal"
-      :type="planModalType"
-      :planInfo="planModalInfo"
-      @close-plan-modal="isShowPlanModal = false"
-      @submit-plan="submitPlan"
-    />
-    <div class="pk-toGame" v-if="roomType != MSG_TYPE.TYPE_MEMBER && gameInfo.isWh != 1 && gameInfo.platform" @click="toGame">
-        <img src="../../assets/img/chat-icon/play.png" alt="">
-    </div>
-  </div>
+		<follow-plan
+			v-if="isShowPlanModal"
+			:type="planModalType"
+			:planInfo="planModalInfo"
+			@close-plan-modal="isShowPlanModal = false"
+			@submit-plan="submitPlan"
+		/>
+		<div
+			class="pk-toGame"
+			v-if="roomType != MSG_TYPE.TYPE_MEMBER && gameInfo.isWh != 1 && gameInfo.platform"
+			@click="toGame"
+		>
+			<img src="../../assets/img/chat-icon/play.png" alt />
+		</div>
+	</div>
 </template>
 <script>
 import Header from "@/components/Header";
@@ -84,11 +82,11 @@ import {
 	userIn,
 	userOut,
 	uploadFile,
-    getPlanned,
-    getPlanneds,
+	getPlanned,
+	getPlanneds,
 	postPlanned
 } from "@/services/im/chat";
-import {  openGame } from "@/services/index";
+import { openGame } from "@/services/index";
 import MSG_TYPE from "@/services/im/constant";
 import Bus from "@/services/im/bus";
 import IM from "@/services/im/connect";
@@ -120,16 +118,18 @@ export default {
 			planModalType: 1, //1=跟投 2=跟单
 			planModalInfo: {}, //跟投，跟单 弹框需要传递的信息
 			planmessage: [],
-            height: "1.44rem", //id="msg_list" 距离底部高度，这个是根据【选择表情，选择文件】，动态改变的
-            roomType:this.$route.query.roomType,//当前窗口类型
-            gameInfo:{},
+			height: "1.44rem", //id="msg_list" 距离底部高度，这个是根据【选择表情，选择文件】，动态改变的
+			roomType: this.$route.query.roomType, //当前窗口类型
+			gameInfo: {}
 		};
-    },
+	},
 	mounted() {
-        this.gameInfo = sessionStorage.getItem('gameInfo') ? JSON.parse(decodeURIComponent(sessionStorage.getItem('gameInfo'))) : {};
-        console.log( this.gameInfo);
-        this.getList();
-        this.getChatPlan();
+		this.gameInfo = sessionStorage.getItem("gameInfo")
+			? JSON.parse(decodeURIComponent(sessionStorage.getItem("gameInfo")))
+			: {};
+		console.log(this.gameInfo);
+		this.getList();
+		this.getChatPlan();
 		if (this.$route.query.roomType == MSG_TYPE.TYPE_CHAT) {
 			this.inRoom();
 		}
@@ -150,35 +150,37 @@ export default {
 			if (newVal) {
 				this.scrollWay();
 			}
-        },
+		}
 	},
 	methods: {
-        toGame(){
-            if(this.gameInfo.platform === "pkplus"){
-                let url =
-                    window.location.origin + "/pkpl/?fc_id=" + this.gameInfo.gameId;
-                window.location.href = url;
-                return;
-            }else{
-                let data = {
-                    gameType: this.gameInfo.gameType,
-                    platform: this.gameInfo.platform,
-                    gameId: this.gameInfo.gameId + ""
-                };
-                openGame(data).then(res => {
-                    if (res.success) {
-                        if (res.data) {
-                            window.open(res.data, "_blank");
-                        }
-                    } else {
-                        this.$toast.fail(res.message, {
-                            cover: true,
-                            duration: 1500
-                        });
-                    }
-                });
-            }
-        },
+		toGame() {
+			if (this.gameInfo.platform === "pkplus") {
+				let url =
+					window.location.origin +
+					"/pkpl/?fc_id=" +
+					this.gameInfo.gameId;
+				window.location.href = url;
+				return;
+			} else {
+				let data = {
+					gameType: this.gameInfo.gameType,
+					platform: this.gameInfo.platform,
+					gameId: this.gameInfo.gameId + ""
+				};
+				openGame(data).then(res => {
+					if (res.success) {
+						if (res.data) {
+							window.open(res.data, "_blank");
+						}
+					} else {
+						this.$toast.fail(res.message, {
+							cover: true,
+							duration: 1500
+						});
+					}
+				});
+			}
+		},
 		// 进入聊天室
 		inRoom() {
 			let data = {
@@ -264,40 +266,41 @@ export default {
 
 				this.dealWithFirstShutUp(datas);
 
-                let result = datas.data || [];
-                // concat 是为了把（投注计划 TODO ①）给放到列表最后面,因为投注计划那边会比请求列表先执行，所有这么做。
-                this.list = result.reverse().concat(this.list);
+				let result = datas.data || [];
+				// concat 是为了把（投注计划 TODO ①）给放到列表最后面,因为投注计划那边会比请求列表先执行，所有这么做。
+				this.list = result.reverse().concat(this.list);
 				this.scrollWay();
 			} else {
 				loading.hide();
 				this.$toast.text(res.message);
 			}
-
-			
-        },
-        //获取投注计划
-        async getChatPlan(){
-            if(this.$route.query.roomType == MSG_TYPE.TYPE_CHAT){
-                let planRes = await getPlanned({ roomId: this.id });
-                if (planRes.success) {
-                    if (planRes.data) {
-                        this.planmessage.push(planRes.data)
-                    } 
-                } else {
-                    this.$toast.text(planRes.message);
-                }
-            }
-            if(this.$route.query.roomType == MSG_TYPE.TYPE_PUBLIC || this.$route.query.roomType == MSG_TYPE.TYPE_PRIVATE){
-                let res = await getPlanneds({ roomId: this.id });
-                if (res.success) {
-                    if (res.data) {
-                        this.planmessage=res.data;
-                    } 
-                } else {
-                    this.$toast.text(res.message);
-                }
-            }
-        },
+		},
+		//获取投注计划
+		async getChatPlan() {
+			if (this.$route.query.roomType == MSG_TYPE.TYPE_CHAT) {
+				let planRes = await getPlanned({ roomId: this.id });
+				if (planRes.success) {
+					if (planRes.data) {
+						this.planmessage.push(planRes.data);
+					}
+				} else {
+					this.$toast.text(planRes.message);
+				}
+			}
+			if (
+				this.$route.query.roomType == MSG_TYPE.TYPE_PUBLIC ||
+				this.$route.query.roomType == MSG_TYPE.TYPE_PRIVATE
+			) {
+				let res = await getPlanneds({ roomId: this.id });
+				if (res.success) {
+					if (res.data) {
+						this.planmessage = res.data;
+					}
+				} else {
+					this.$toast.text(res.message);
+				}
+			}
+		},
 		// 设置 id="msg_list" 距离底部高度
 		setHeight(bottom) {
 			this.height = bottom + "rem";
@@ -550,13 +553,18 @@ export default {
 
 		//点击item消息
 		async handleClick(type, data) {
-			switch (type ) {
+			switch (type) {
 				case MSG_TYPE.IM_MSG_TYPE_RED:
-                    this.getRed(data);
-                    break;
+					this.getRed(data);
+					break;
 				case MSG_TYPE.IM_MSG_TYPE_BET:
 					this.isShowPlanModal = true;
 					this.planModalType = 1;
+					this.planModalInfo = data;
+					break;
+				case MSG_TYPE.IM_MSG_TYPE_FOLLOW:
+					this.isShowPlanModal = true;
+					this.planModalType = 2;
 					this.planModalInfo = data;
 					break;
 			}
@@ -616,8 +624,7 @@ export default {
 						this.list.push(item);
 					}
 				});
-            }
-            
+			}
 		},
 
 		//显示跟投弹框
@@ -651,6 +658,23 @@ export default {
 				}
 			}
 			if (type === 2) {
+				let postData = {
+					roomId: this.id,
+					handicap: 1,
+					fcType: 2,
+					bet: info.bet,
+					contentId: info.msg.contentId,
+					fcId: info.msg.fcId,
+					playDetails: info.msg.playDetails,
+					playId: info.msg.playId
+				};
+				let res = await postPlanned(postData);
+				if (res.success) {
+					this.$toast.text(res.data);
+					this.isShowPlanModal = false; //关闭弹框
+				} else {
+					this.$toast.text(res.message);
+				}
 			}
 		},
 
@@ -669,9 +693,10 @@ export default {
 						//自己发送的消息收到推送了就不处理
 					} else {
 						// 投注计划-往群，聊天室顶部插入
-						if(data.msgType === MSG_TYPE.IM_MSG_TYPE_BET){
+						if (data.msgType === MSG_TYPE.IM_MSG_TYPE_BET) {
 							this.dealWithBetPlan(data);
-						}else { //非投注计划-往消息列表插入
+						} else {
+							//非投注计划-往消息列表插入
 							this.list.push(data);
 						}
 					}
@@ -827,49 +852,49 @@ export default {
 		},
 
 		//处理 投注计划推送
-		dealWithBetPlan(data){
-            console.log(data,"-------------////-========")
+		dealWithBetPlan(data) {
+			console.log(data, "-------------////-========");
 		}
 	}
 };
 </script>
 <style lang="scss" scoped>
 .chat-header {
-  /deep/ .nav-center {
-    flex: 1;
-  }
-  .number {
-    font-size: px2rem(24);
-    color: $label-color;
-    display: inline-block;
-    margin-left: px2rem(18);
-    margin-top: px2rem(10);
-  }
+	/deep/ .nav-center {
+		flex: 1;
+	}
+	.number {
+		font-size: px2rem(24);
+		color: $label-color;
+		display: inline-block;
+		margin-left: px2rem(18);
+		margin-top: px2rem(10);
+	}
 }
 .msg-list {
-  height: auto;
-  background: $default-bg-color;
-  position: absolute;
-  width: 100%;
-  bottom: px2rem(108);
-  overflow-y: auto;
-  top: px2rem(88);
-  // -webkit-overflow-scrolling: auto; 当手指从触摸屏上移开，滚动会立即停止
-  -webkit-overflow-scrolling: touch; //当手指从触摸屏上移开，会保持一段时间的滚动
-  ul {
-    padding: 0 px2rem(32);
-  }
+	height: auto;
+	background: $default-bg-color;
+	position: absolute;
+	width: 100%;
+	bottom: px2rem(108);
+	overflow-y: auto;
+	top: px2rem(88);
+	// -webkit-overflow-scrolling: auto; 当手指从触摸屏上移开，滚动会立即停止
+	-webkit-overflow-scrolling: touch; //当手指从触摸屏上移开，会保持一段时间的滚动
+	ul {
+		padding: 0 px2rem(32);
+	}
 }
-.pk-toGame{
-    position: fixed;
-    bottom: px2rem(140);
-    right: px2rem(26);
-    z-index: 99;
-    width: px2rem(100);
-    height: px2rem(100);
-    img{
-        width: 100%;
-        height: 100%;
-    }
+.pk-toGame {
+	position: fixed;
+	bottom: px2rem(140);
+	right: px2rem(26);
+	z-index: 99;
+	width: px2rem(100);
+	height: px2rem(100);
+	img {
+		width: 100%;
+		height: 100%;
+	}
 }
 </style>

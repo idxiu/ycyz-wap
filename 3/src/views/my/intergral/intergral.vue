@@ -2,7 +2,7 @@
   <div class="intergral" v-cloak>
     <div class="interHead">
       <Header title="会员积分" backPath='/my' class="navblack"></Header>
-      <div class="noticebar" v-if="announcement.length > 0" @click="toSystemAnnounce">
+      <div class="noticebar" v-if="announcement.length > 0">
             <div class="noticebar-label">
                 <i><img src="../../../assets/img/my-icon/icons/intergral/tongzhi.png" alt="" srcset=""></i>
             </div>
@@ -170,14 +170,14 @@ export default {
         name: path
       });
     },
-    toSystemAnnounce() {
-        this.$router.push({
-            name: "systemAnnounce",
-            query: {
-                active: 1
-            }
-        });
-    },
+    // toSystemAnnounce() {
+    //     this.$router.push({
+    //         name: "systemAnnounce",
+    //         query: {
+    //             active: 1
+    //         }
+    //     });
+    // },
     getAnnouncementFunc() {
         getAnnouncement(-1).then(res => {
             if (res.success) {

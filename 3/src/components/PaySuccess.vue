@@ -8,7 +8,7 @@
 <template>
 	<div class="pay-success">
 		<div class="pay-success-box">
-			<i class="iconfont iconicon_bz"></i>
+			<i class="iconfont iconicon_cg"></i>
 			<p class="desc">{{dataObj.desc}}</p>
 			<div v-show="dataObj.details && dataObj.details.length>0" class="order-details">
 				<ul>

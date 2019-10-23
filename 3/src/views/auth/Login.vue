@@ -9,8 +9,8 @@
 	<div class="pk-auth">
 		<div class="pk-auth-box">
 			<div class="pk-site-info">
-				<!-- <img :src="siteInfo.logo" alt="" class="pk-site-logo"> -->
-				<img src="../../assets/img/icon_logo.png" alt class="pk-site-logo" />
+				<img v-if="siteInfo.logo" :src="siteInfo.logo" alt class="pk-site-logo" />
+				<img v-else src="../../assets/img/icon_logo.png" alt class="pk-site-logo" />
 				<p class="pk-site-name">{{siteInfo.siteName}}</p>
 			</div>
 			<section class="pk-form-box">
@@ -25,10 +25,14 @@
 						</label>
 					</li>
 					<li class="pk-form-item">
-						<input type="password" id="password" placeholder="请输入密码" v-model="password" />
+						<input :type="inpuType" id="password" placeholder="请输入密码" v-model="password" />
 						<label for="password">
 							<img src="../../assets/img/auth-icon/mm.png" alt />
 						</label>
+						<div class="passEye iconfont" 
+						:class="showPass"
+						@click="showPassWord()" 
+						></div>
 					</li>
 					<li
 						class="pk-form-item form-code"
@@ -58,8 +62,8 @@
 					</li>-->
 				</ul>
 				<div class="btns">
-					<!-- <div class="btn btn-try" @click="tryPlay">试玩</div> -->
-					<div style="width:100%;" class="btn" @click="toLogin">登录</div>
+					<div class="btn btn-try" @click="tryPlay">试玩</div>
+					<div class="btn" @click="toLogin">登录</div>
 				</div>
 				<div class="thdlogins" v-if="haveqqlogin || havewechatlogin">
 					<p class="thdlogins-title">社交账号登录</p>
@@ -95,6 +99,7 @@ import {
 import { getLogo } from "../../services/index.js";
 import Mpanel from "../../components/Mpanel.vue"; //验证
 import Bus from "@/services/im/bus";
+import { js2oc } from "@/js_oc";
 
 export default {
 	components: {
@@ -115,6 +120,9 @@ export default {
 			havewechatlogin: false,
 			goUrl: "",
 			shwoCode: false,
+			eyesBtn: false,
+			showPass: 'icondl_eye_off',
+			inpuType: 'password',
 			remember:
 				localStorage.getItem("account") &&
 				localStorage.getItem("password")
@@ -130,7 +138,11 @@ export default {
 			getLogo().then(res => {
 				if (res.success) {
 					this.siteInfo = res.data;
-					// localStorage.setItem("nodeTitle", this.siteInfo.siteName);
+					// ws 权限认证需要传递 siteIndexId 和 siteId
+					localStorage.setItem(
+						"siteInfo",
+						JSON.stringify(this.siteInfo)
+					);
 					// document.title = this.siteInfo.siteName;
 				} else {
 					this.$toast.fail(res.message, {
@@ -240,7 +252,7 @@ export default {
 			if (res.success) {
 				sessionStorage.setItem("token", res.data);
 				Bus.$emit("toggle-try-play-modal", true, 1);
-			}else {
+			} else {
 				this.$toast.text(res.message);
 			}
 		},
@@ -253,6 +265,13 @@ export default {
 			};
 			login(data).then(res => {
 				if (res.success) {
+					// 给 APP传递token
+					window.JsBridge(bridge => {
+						bridge.callHandler(js2oc.SET_TOKEN, {
+							token: res.data
+						});
+					});
+
 					sessionStorage.setItem("token", res.data);
 
 					getInfo().then(result => {
@@ -296,11 +315,21 @@ export default {
 			this.codeInfo.id = id;
 			this.mpanelShow = false;
 			this.loginAjax();
+		},
+		//显示密码
+		showPassWord(){
+			if(this.eyesBtn) {
+				this.showPass = 'icondl_eye_off';
+				this.inpuType = 'password';
+			}else{
+				this.showPass = 'icondl_eye_no';
+				this.inpuType = 'text';
+			}
+			this.eyesBtn = !this.eyesBtn;
 		}
 	}
 };
 </script>
-
 <style lang="scss" scoped>
 @import "./auth.scss";
 </style>

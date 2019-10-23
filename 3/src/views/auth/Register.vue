@@ -9,10 +9,9 @@
 	<div class="pk-auth">
 		<div class="pk-auth-box">
 			<div class="pk-site-info">
-				<!-- <img :src="siteInfo.logo" alt="" class="pk-site-logo"> -->
-				<img src="../../assets/img/icon_logo.png" alt class="pk-site-logo" />
-				<p class="pk-site-name">zzy_a</p>
-				<!-- <p class="pk-site-name">{{siteInfo.siteName}}</p> -->
+				<img v-if="siteInfo.logo" :src="siteInfo.logo" alt="" class="pk-site-logo">
+				<img v-else src="../../assets/img/icon_logo.png" alt class="pk-site-logo" />
+				<p class="pk-site-name">{{siteInfo.siteName}}</p>
 			</div>
 			<section class="pk-form-box">
 				<ul>
@@ -32,16 +31,24 @@
 						</label>
 					</li>
 					<li class="pk-form-item">
-						<input type="password" id="password" placeholder="6-20位字母和数字组合" v-model="password" />
+						<input :type="inpuType" id="password" placeholder="6-20位字母和数字组合" v-model="password" />
 						<label for="password">
 							<img src="../../assets/img/auth-icon/mm.png" alt />
 						</label>
+						<div class="passEye iconfont" 
+						:class="showPass"
+						@click="showPassWord()" 
+						></div>
 					</li>
 					<li class="pk-form-item">
-						<input type="password" id="passwordComf" placeholder="再次输入您的登录密码" v-model="passwordComf" />
+						<input :type="inpuTypeComf" id="passwordComf" placeholder="再次输入您的登录密码" v-model="passwordComf" />
 						<label for="passwordComf">
 							<img src="../../assets/img/auth-icon/mm.png" alt />
 						</label>
+						<div class="passEye iconfont" 
+						:class="showPassComf"
+						@click="showPassWord('again')" 
+						></div>
 					</li>
 					<li class="pk-form-item form-code" v-if="setting.isCode == 1 && setting.captchaType == 1">
 						<input type="text" id="code" v-model="code" />
@@ -127,6 +134,7 @@ export default {
 	},
 	data() {
 		return {
+			siteInfo:JSON.parse(localStorage.getItem('siteInfo')),
 			showAccountIcon: false,
 			showCodeClearIcon: false,
 			announcement: [],
@@ -146,7 +154,13 @@ export default {
 			setting: {},
 			mpanelShow: false,
 			shwoCode: false,
-			agreementText: false
+			agreementText: false,
+			eyesBtn: false,
+			eyesBtnComf: false,
+			showPassComf: 'icondl_eye_off',
+			showPass: 'icondl_eye_off',
+			inpuType: 'password',
+			inpuTypeComf: 'password'
 		};
 	},
 	mounted() {
@@ -292,6 +306,31 @@ export default {
 				this.mpanelShow = true;
 			} else {
 				this.loginAjax();
+			}
+		},
+		//显示密码
+		showPassWord(type){
+			let thisClass,thisType,switchBtn;
+			if(type){
+				switchBtn = this.eyesBtnComf
+			}else{
+				switchBtn = this.eyesBtn
+			}
+			if(switchBtn) {
+				thisClass = 'icondl_eye_off';
+				thisType = 'password';
+			}else{
+				thisClass = 'icondl_eye_no';
+				thisType = 'text';
+			}
+			if(type){
+				this.eyesBtnComf = !this.eyesBtnComf;
+				this.showPassComf = thisClass;
+				this.inpuTypeComf = thisType;
+			}else{
+				this.eyesBtn = !this.eyesBtn;
+				this.showPass = thisClass;
+				this.inpuType = thisType;
 			}
 		},
 		// 验证通过

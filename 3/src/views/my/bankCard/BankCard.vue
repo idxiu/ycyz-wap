@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header title="银行卡"></Header>
+    <Header title="银行卡" backPath="/my"></Header>
     <div class="content">
       <div class="pk-bankCard" 	v-for="(item, i) in bankList"
 				:key="i"

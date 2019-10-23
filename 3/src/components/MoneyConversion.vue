@@ -6,58 +6,67 @@
  * @LastEditors: Please set LastEditors
  -->
 <template>
-    <div>
-
+    <div class="mbox" v-show="isShowTransInOrOut">
         <!--额度转换弹框 -start -->
-        <nut-dialog title="额度转换" customClass="pk-dialog-transfer" :visible="isShowTransInOrOut" :lockBgScroll="true"
-            :closeOnClickModal="false" :noFooter="true" @close="isShowTransInOrOut=false">
-            <div class="changers">
-                <div class="left">
-                    <div class="tit">系统余额</div>
-                    <div class="moneys">¥{{walletBalance | currency('',2)}}</div>
-                </div>
-                <div class="mid">
-                    <div class="tit">
-                        转入
-                        <i>
-                            <img src="../assets/img/my-icon/icons/transfer/icon_mine_edzh_zr.png" alt="zr" />
-                        </i>
+        <div class="nut-dialog-wrapper pk-dialog-transfer">
+            <div class="nut-dialog-mask"></div>
+            <div class="nut-dialog-box nut-dialog-boxs">
+                <div class="nut-pro">
+                    <div class="nut-dialog nut-dialogs">
+                        <div class="nut-dialog-body">
+                            <span class="nut-dialog-title">额度转换</span>
+                            <div class="nut-dialog-content" style="text-align: center;">
+                                <div class="changers">
+                                    <div class="left">
+                                        <div class="tit">系统余额</div>
+                                        <div class="moneys">¥{{walletBalance | currency('',2)}}</div>
+                                    </div>
+                                    <div class="mid">
+                                        <div class="tit">
+                                            转入
+                                            <i>
+                                                <img src="../assets/img/my-icon/icons/transfer/icon_mine_edzh_zr.png" alt="zr" />
+                                            </i>
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <div class="tit">{{productName}}</div>
+                                        <div class="moneys">¥{{platformBalance | currency('',2)}}</div>
+                                    </div>
+                                </div>
+                                <div class="money">
+                                    <div class="label">转入金额</div>
+                                    <div class="money-input">
+                                        <div class="num">
+                                            <input type="number" maxlength="10" placeholder="请输入转入金额" v-model.number="transferAmount" />
+                                            <span>.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="in-money-chinese">{{moneyChinese}}</p>
+                                <nut-row class="fast-money" :gutter="5">
+                                    <nut-col :span="6" v-for="(item,index) in fastMoneyList" :key="index"
+                                        :class="{'active':fastMoneyIndex === index,'money-disabled': walletBalance * 1 < item *1 }"
+                                        @click.native="handleFast(index)">
+                                        <div class="fast-money-item">{{item}}</div>
+                                    </nut-col>
+                                </nut-row>
+                                <div class="btns">
+                                    <div class="cancel" @click="intoGame()">直接进入</div>
+                                    <div class="sure" @click="transferSubmit()">转账进入</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pk-close-box" @click="closeBox()">
+                        <img src="../assets/img/game-icon/gb.png" alt />
                     </div>
                 </div>
-                <div class="right">
-                    <div class="tit">{{productName}}</div>
-                    <div class="moneys">¥{{platformBalance | currency('',2)}}</div>
-                </div>
             </div>
-            <div class="money">
-                <div class="label">转入金额</div>
-                <div class="money-input">
-                    <div class="num">
-                        <input type="number" maxlength="10" placeholder="请输入转入金额" v-model.number="transferAmount" />
-                        <span>.00</span>
-                    </div>
-                </div>
-            </div>
-            <p class="in-money-chinese">{{moneyChinese}}</p>
-
-            <nut-row class="fast-money" :gutter="5">
-                <nut-col :span="6" v-for="(item,index) in fastMoneyList" :key="index"
-                    :class="{'active':fastMoneyIndex === index,'money-disabled': walletBalance * 1 < item *1 }"
-                    @click.native="handleFast(index)">
-                    <div class="fast-money-item">{{item}}</div>
-                </nut-col>
-            </nut-row>
-
-            <div class="btns">
-                <div class="cancel" @click="intoGame()">直接进入</div>
-                <div class="sure" @click="transferSubmit()">转账进入</div>
-            </div>
-            <div class="pk-close-box" @click="closeBox()">
-                <img src="../assets/img/game-icon/gb.png" alt />
-            </div>
-        </nut-dialog>
-        <!--额度转换弹框 -end -->
+        </div>
     </div>
+
+                    <!--额度转换弹框 -end -->
 </template>
 <script>
 import { getInfo } from "@/services/auth.js";
@@ -261,7 +270,7 @@ export default {
 <style scoped lang="scss">
 // -------额度转换------
 
-/deep/.nut-dialog-wrapper {
+.nut-dialog-wrapper {
     .nut-dialog-box {
         .nut-dialog {
             .nut-dialog-body {
@@ -305,9 +314,12 @@ export default {
             }
         }
     }
+    .nut-dialog-boxs{
+        display: flex;
+    }
 }
 
-/deep/.pk-dialog-transfer {
+.pk-dialog-transfer {
     .nut-dialog .nut-dialog-body .nut-dialog-content div {
         white-space: normal;
     }
@@ -399,15 +411,28 @@ export default {
     }
 }
 .pk-close-box {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, px2rem(380));
-    width: px2rem(70);
-    height: px2rem(70);
+    width: 100%;
+    height: px2rem(88);
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
     img {
-        width: 100%;
-        height: 100%;
+        width: px2rem(70);
+        height: px2rem(70);
     }
 }
+.mbox{
+   position: relative;
+}
+.nut-pro{
+    width: 86%;
+}
+.nut-dialog-wrapper {
+    position: relative;
+    z-index: 9998;
+}
+.nut-dialogs{
+    width: 100%;
+}
+
 </style>

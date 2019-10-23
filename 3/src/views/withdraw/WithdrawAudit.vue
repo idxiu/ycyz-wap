@@ -1,6 +1,6 @@
 <template>
 	<div class="widthdraw-audit">
-		<Header title="提现"></Header>
+		<Header title="提现" backPath="/my"></Header>
 		<div class="content" v-if="queryData">
 			<div class="audit-details">
 				<ul>

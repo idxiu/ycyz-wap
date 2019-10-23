@@ -116,23 +116,29 @@
             <div class="changers">
                 <div class="left">
                     <div class="tit">{{doType === 2?'系统余额':transInfo.text}}</div>
-                    <div class="moneys">
+                    <div class="moneys" v-show="doType === 2">
                         ¥{{moneyInfo.walletBalance | currency('',2)}}
+                    </div>
+                    <div class="moneys" v-show="doType !== 2">
+                        ¥{{productValue | currency('',2)}}
                     </div>
                 </div>
                 <div class="mid">
                     <div class="tit">
                         {{doType === 2?'转入':'转出'}}
                         <i>
-                            <img v-show="doType === 2" src="../../assets/img/my-icon/icons/transfer/icon_mine_edzh_zr.png" alt="zr">
-                            <img v-show="doType !== 2" src="../../assets/img/my-icon/icons/transfer/icon_mine_edzh_zc.png" alt="zc">
+                            <img src="../../assets/img/my-icon/icons/transfer/icon_mine_edzh_zr.png" alt="zr">
+                            <!-- <img v-show="doType !== 2" src="../../assets/img/my-icon/icons/transfer/icon_mine_edzh_zc.png" alt="zc"> -->
                         </i>
                     </div>
                 </div>
                 <div class="right">
                     <div class="tit">{{doType === 2?transInfo.text:'系统余额'}}</div>
-                    <div class="moneys">
+                    <div class="moneys" v-show="doType === 2">
                         ¥{{productValue | currency('',2)}}
+                    </div>
+                    <div class="moneys" v-show="doType !== 2">
+                        ¥{{moneyInfo.walletBalance | currency('',2)}}
                     </div>
                 </div>
             </div>
@@ -745,7 +751,8 @@
 				display: flex;
 				justify-content: space-between;
 				i {
-					font-style: normal;
+                    font-style: normal;
+					font-size: px2rem(12);
 					color: #17c492;
 					&.disabled{
 						color:$placeholder-color;

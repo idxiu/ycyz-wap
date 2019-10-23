@@ -214,6 +214,18 @@
 						<i class="iconfont iconicon_mine_rmore"></i>
 					</div>
 				</router-link>
+
+				<router-link tag="li" :to="{name:'download'}">
+					<div class="icon-left">
+						<i>
+							<img src="../../assets/img/discover/fx_wdgz@2x.png"/>
+						</i>
+					</div>
+					<div class="text pk-1px-b">APP下载</div>
+					<div class="icon pk-1px-b">
+						<i class="iconfont iconicon_mine_rmore"></i>
+					</div>
+				</router-link>
 			</ul>
 		</div>
 		<Footer></Footer>

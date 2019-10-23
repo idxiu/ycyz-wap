@@ -9,7 +9,7 @@
 	<div class="pay-return-result">
 		<div class="return-result-box">
 			<!-- <img src="../assets/img/icon_wallet_qs.png" alt=""> -->
-			<i class="iconfont iconicon_bz"></i>
+			<i class="iconfont iconicon_cg"></i>
 			<h2>请在新开页面完成存款</h2>
 			<button @click="okPay()">我已完成存款</button>
 			<button @click="continuePay()" class="continue">重新选择支付方式</button>

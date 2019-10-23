@@ -239,8 +239,8 @@ export default {
                 });
                 return
             }
-			if (!/^([1-9]{1})(\d{15,18})$/.test(this.card)) {
-				this.$toast.fail("银行卡号规则为16-19位数字", {
+			if (!/^([1-9]{1})(\d{15,19})$/.test(this.card)) {
+				this.$toast.fail("银行卡号规则为16-20位数字", {
 					cover: true,
 					duration: 4000
                 });

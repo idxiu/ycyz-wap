@@ -246,7 +246,7 @@ export default {
 				customClass: "pk-dialogs",
 				onOkBtn() {
 					this.close();
-					self.$router.push({ name: "bankcardList" }); //添加银行卡
+					self.$router.push({ name: "bankAdd" }); //添加银行卡
 				}
             });
             this.makeDialog()
@@ -419,7 +419,7 @@ export default {
 	},
 	watch: {
 		outMoney(newVal, oldVal) {
-            newVal = (newVal==''||newVal==0)?'零':this.filterAmount(newVal * 1);
+            this.outMoneyChinese = (newVal==''||newVal==0)?'零':this.filterAmount(newVal * 1);
 		},
 		isShowChooseBankModal(newVal, oldVal) {
 			if (newVal) {

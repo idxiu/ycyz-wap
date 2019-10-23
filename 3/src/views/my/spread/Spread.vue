@@ -205,9 +205,8 @@ export default {
             ctx.width = img.width;
             ctx.height = img.height;
             ctx.fillStyle = '#fff';
-            ctx.fillRect(0, 0, ctx.width, ctx.height);
-            ctx.drawImage(img, 0, 0, ctx.width, ctx.height);
-            
+            ctx.fillRect(20, 20, 135,180);
+            ctx.drawImage(img, 0, 0, 180, 180);
 			// 构造url
             var url = canvas.toDataURL("image/png");
 			// // 构造a标签并模拟点击
